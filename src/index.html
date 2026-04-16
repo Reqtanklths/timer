@@ -2,11 +2,48 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <title>Hello World!</title>
+    <title>Timer</title>
     <link rel="stylesheet" href="index.css" />
   </head>
   <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
+    <!-- Window image -->
+    <div class="appwindowContainer">
+      <img src="../assets/images/windowapp.png" class="windowLayout">
+      <img id="timerTitle" src="../assets/images/timertittle.PNG">
+    </div>
+    <div class="appWindowControlsContainer">
+<!-- Window tab buttons -->
+      <button id="closedButton" class="windowLayout">
+        <img src="../assets/images/closebutton.PNG">
+      </button>
+      <button id="exitButton" class="appWindowControlsContainer">
+        <img src="../assets/images/exitbutton.PNG">
+      </button>
+    </div>
+<div class="appclockContainer">
+      <img id="appClock" src="../assets/images/appclock.PNG" class="clockImage">
+</div>
+<!-- User input for hours, minutes, and seconds -->
+    <div class="userInputContainer">
+            <!--User need to input number of hours, minutes, and seconds-->
+            <input class="timeMetrics" type="number" id="hours" placeholder="00" min="00" max="99">
+            <span class="timeColon">:</span>
+            <input class="timeMetrics" type="number" id="minutes" placeholder="00" min="00" max="60">
+            <span class="timeColon">: </span>
+            <input class="timeMetrics" type="number" id="seconds" placeholder="00" min="00" max="60">
+        </div>
+<!-- Timer buttons -->
+        <div class="timerButtonsContainer">
+          <button id="start" class="timebutton">
+            <img src="../assets/images/playbuttonapp.PNG">
+          </button>
+          <button id="pause" class="timebutton">
+            <img src="../assets/images/pausebuttonapp.PNG">
+          </button>
+          <button id="stop" class="timebutton">
+            <img src="../assets/images/stopbuttonapp.PNG">
+          </button>
+        </div>
+    
   </body>
 </html>
