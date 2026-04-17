@@ -33,21 +33,20 @@ body {
   position: absolute;
   top: 18px;
   left: 20px;
-  height: px;
   width: 122px;
 }
 
 /* =========================
-   TOP RIGHT CONTROLS (UNSTUCK & ALIGNED)
+   TOP RIGHT CONTROLS
    ========================= */
 
 .appWindowControlsContainer {
   position: absolute;
-  top: 25px;     /* Aligns vertically with the TIMR text */
-  right: 18px;   /* Distance from the right edge */
+  top: 25px; 
+  right: 18px;
   display: flex;
   align-items: center;
-  gap: 12px;     /* UNSTICKS THEM: Space between the two buttons */
+  gap: 12px;
   z-index: 100;
 }
 
@@ -56,19 +55,9 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* Fixed box size ensures they don't move when pressed */
   width: 42px; 
-  height:25px;
+  height: 25px;
   left: -7px;
-}
-
-/* Alignment Nudge: Use these to move them individually if one looks higher than the other */
-#closedButton {
-  top: 0px; 
-}
-
-#exitButton {
-  top: 0px;
 }
 
 #closedButton img, #exitButton img {
@@ -123,7 +112,9 @@ body {
   transform: translateX(-50%);
 }
 
-.clockImage { width: 300px; }
+.clockImage { 
+  width: 300px; 
+}
 
 .userInputContainer {
   position: absolute;
@@ -131,25 +122,39 @@ body {
   left: 53%;
   transform: translateX(-50%);
   display: flex;
+  align-items: center; /* Ensures colons align with numbers */
 }
 
+/* TIMER FONT & COLORS */
 .timeMetrics {
   font-size: 40px;
   font-family: "Silkscreen", sans-serif;
   width: 70px;
   background: transparent;
   border: none;
-  color: rgb(255, 255, 255);
+  color: #ffffff; /* Pure White */
   text-align: center;
+  outline: none;
 }
+
 .timeColon {
-  font-size: 40px;                 /* Match the numbers */
+  font-size: 40px;
   font-family: "Silkscreen", sans-serif;
-  color: #ffffff;                 /* Pure White */
+  color: #ffffff;
   line-height: 1;
   display: flex;
   align-items: center;
-  padding-bottom: 5px;            /* Nudges colon up/down if it looks off-center */
+  padding-bottom: 5px; /* Adjusts colon height slightly */
+}
+
+/* Remove number arrows (Spinners) */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
 }
 
 /* GLOBAL BUTTON RESET */
@@ -163,7 +168,7 @@ button {
    ================================================= */
 
 button:active img {
-  transform: translateY(1px); /* Nudges the pushed image down slightly */
+  transform: translateY(1px);
 }
 
 /* =================================================
@@ -171,11 +176,11 @@ button:active img {
    ================================================= */
 
 #closedButton:active img {
-  content: url("../assets/images/pushedclosedbuttonc.PNG");
+  content: url("../assets/images/pushedclosebutton.PNG")
 }
 
 #exitButton:active img {
-  content: url("../assets/images/pushedexitbuttonc.PNG");
+    content: url("../assets/images/pushedexitbutton.PNG")
 }
 
 #start:active img {

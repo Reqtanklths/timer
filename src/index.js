@@ -1,51 +1,85 @@
-const { app, BrowserWindow } = require('electron');
-const path = require('node:path');
+let timerInterval;
+let totalSeconds = 0;
+let isPaused = false;
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) {
-  app.quit();
+// Select the input elements
+const hoursInput = document.getElementById('hours');
+const minutesInput = document.getElementById('minutes');
+const secondsInput = document.getElementById('seconds');
+
+// Select the buttons
+const startBtn = document.getElementById('start');
+const pauseBtn = document.getElementById('pause');
+const stopBtn = document.getElementById('stop');
+
+function updateDisplay() {
+    const h = Math.floor(totalSeconds / 3600);
+    const m = Math.floor((totalSeconds % 3600) / 60);
+    const s = totalSeconds % 60;
+
+    // Formats numbers to always show two digits (e.g., 05 instead of 5)
+    hoursInput.value = h.toString().padStart(2, '0');
+    minutesInput.value = m.toString().padStart(2, '0');
+    secondsInput.value = s.toString().padStart(2, '0');
 }
 
-const createWindow = () => {
-  // Create the browser window.
-  const mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-    },
-  });
+function startTimer() {
+    if (timerInterval) return; // Prevent multiple intervals
 
-  // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
-};
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.whenReady().then(() => {
-  createWindow();
-
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
+    // Get current values from inputs if we aren't resuming from a pause
+    if (!isPaused) {
+        const h = parseInt(hoursInput.value) || 0;
+        const m = parseInt(minutesInput.value) || 0;
+        const s = parseInt(secondsInput.value) || 0;
+        totalSeconds = h * 3600 + m * 60 + s;
     }
-  });
+
+    if (totalSeconds <= 0) return;
+
+    isPaused = false;
+    timerInterval = setInterval(() => {
+        if (totalSeconds <= 0) {
+            clearInterval(timerInterval);
+            timerInterval = null;
+            alert("Time's up!");
+            return;
+        }
+        totalSeconds--;
+        updateDisplay();
+    }, 1000);
+}
+
+function pauseTimer() {
+    isPaused = true;
+    clearInterval(timerInterval);
+    timerInterval = null;
+}
+
+function stopTimer() {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    totalSeconds = 0;
+    isPaused = false;
+    hoursInput.value = "";
+    minutesInput.value = "";
+    secondsInput.value = "";
+    hoursInput.placeholder = "00";
+    minutesInput.placeholder = "00";
+    secondsInput.placeholder = "00";
+}
+
+// Event Listeners
+startBtn.addEventListener('click', startTimer);
+pauseBtn.addEventListener('click', pauseTimer);
+stopBtn.addEventListener('click', stopTimer);
+
+// Top Right Button placeholders (Close/Exit logic)
+document.getElementById('exitButton').addEventListener('click', () => {
+    window.close(); // Only works if the tab was opened via JS, otherwise:
+    alert("Exit button clicked");
 });
 
-// Quit when all windows are closed, except on macOS. There, it's common
-// for applications and their menu bar to stay active until the user quits
-// explicitly with Cmd + Q.
-app.on('window-all-closed', () => {
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
+document.getElementById('closedButton').addEventListener('click', () => {
+    stopTimer();
+    alert("Window Closed");
 });
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
