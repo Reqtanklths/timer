@@ -1,0 +1,196 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+body {
+  background: #d3d3d3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  image-rendering: pixelated;
+}
+
+/* MAIN WINDOW */
+.appwindowContainer {
+  position: relative;
+  width: 400px; 
+}
+
+/* WINDOW IMAGE */
+.windowLayout {
+  width: 100%;
+  display: block;
+  image-rendering: pixelated;
+}
+
+/* TITLE */
+#timerTitle {
+  position: absolute;
+  top: 18px;
+  left: 20px;
+  height: px;
+  width: 122px;
+}
+
+/* =========================
+   TOP RIGHT CONTROLS (UNSTUCK & ALIGNED)
+   ========================= */
+
+.appWindowControlsContainer {
+  position: absolute;
+  top: 25px;     /* Aligns vertically with the TIMR text */
+  right: 18px;   /* Distance from the right edge */
+  display: flex;
+  align-items: center;
+  gap: 12px;     /* UNSTICKS THEM: Space between the two buttons */
+  z-index: 100;
+}
+
+#closedButton, #exitButton {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Fixed box size ensures they don't move when pressed */
+  width: 42px; 
+  height:25px;
+  left: -7px;
+}
+
+/* Alignment Nudge: Use these to move them individually if one looks higher than the other */
+#closedButton {
+  top: 0px; 
+}
+
+#exitButton {
+  top: 0px;
+}
+
+#closedButton img, #exitButton img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* =========================
+   BOTTOM BUTTONS
+   ========================= */
+
+.timerButtonsContainer {
+  position: absolute;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+#start img, 
+#stop img {
+  width: 105px;
+  height: auto;
+  display: block;
+}
+
+#pause img {
+  width: 75px; 
+  height: auto;
+  display: block;
+}
+
+#pause {
+  width: 75px; 
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+#start, #stop {
+  position: relative;
+}
+
+/* CLOCK & INPUTS */
+.appclockContainer {
+  position: absolute;
+  top: 115px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.clockImage { width: 300px; }
+
+.userInputContainer {
+  position: absolute;
+  bottom: 270px;
+  left: 53%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.timeMetrics {
+  font-size: 40px;
+  font-family: "Silkscreen", sans-serif;
+  width: 70px;
+  background: transparent;
+  border: none;
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+.timeColon {
+  font-size: 40px;                 /* Match the numbers */
+  font-family: "Silkscreen", sans-serif;
+  color: #ffffff;                 /* Pure White */
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  padding-bottom: 5px;            /* Nudges colon up/down if it looks off-center */
+}
+
+/* GLOBAL BUTTON RESET */
+button {
+  all: unset;
+  cursor: pointer;
+}
+
+/* =================================================
+   THE "PUSHED" EFFECT (Moves 1px lower on click)
+   ================================================= */
+
+button:active img {
+  transform: translateY(1px); /* Nudges the pushed image down slightly */
+}
+
+/* =================================================
+   PNG IMAGE SWAP ON CLICK
+   ================================================= */
+
+#closedButton:active img {
+  content: url("../assets/images/pushedclosedbuttonc.PNG");
+}
+
+#exitButton:active img {
+  content: url("../assets/images/pushedexitbuttonc.PNG");
+}
+
+#start:active img {
+  content: url("../assets/images/pushedplaybuttonapp.PNG");
+}
+
+#pause:active img {
+  content: url("../assets/images/pushedpausebuttonapp.PNG");
+}
+
+#stop:active img {
+  content: url("../assets/images/pushedstopbuttonapp.PNG");
+}
+
+/* PIXEL CLEAN LOOK */
+button img {
+  image-rendering: pixelated;
+}
